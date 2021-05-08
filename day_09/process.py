@@ -27,8 +27,8 @@ class MarbleGame:
 
     @classmethod
     def from_string(cls, string, marble_multiplier=1):
-        if match := re.fullmatch(r'(\d+) players; last marble is worth (\d+) points', string):
-            return cls(int(match.group(1)), int(match.group(2)) * marble_multiplier)
+        if match := re.fullmatch(r'(?P<elves>\d+) players; last marble is worth (?P<last_marble>\d+) points', string):
+            return cls(int(match.group('elves')), int(match.group('last_marble')) * marble_multiplier)
         else:
             raise Exception
 
