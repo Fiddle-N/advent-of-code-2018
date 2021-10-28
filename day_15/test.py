@@ -11,8 +11,8 @@ class TestGridParse:
 #E.G.E#
 #.G.E.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits.grid == {
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat.grid == {
             process.Coords(1, 1): process.Map.CAVERN,
             process.Coords(2, 1): process.Unit(process.Map.GOBLIN),
             process.Coords(3, 1): process.Map.CAVERN,
@@ -40,9 +40,9 @@ class TestAdjTargets:
 #.E...#
 #...G.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
         with pytest.raises(ValueError):
-            beverage_bandits._adj_targets(process.Coords(0, 0))
+            elf_goblin_combat._adj_targets(process.Coords(0, 0))
 
     def test_adj_target_raises_exception_if_passed_a_cavern_space(self):
         input_ = """\
@@ -51,9 +51,9 @@ class TestAdjTargets:
 #.E...#
 #...G.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
         with pytest.raises(ValueError):
-            beverage_bandits._adj_targets(process.Coords(1, 1))
+            elf_goblin_combat._adj_targets(process.Coords(1, 1))
 
     def test_adj_target_with_no_units_in_range(self):
         input_ = """\
@@ -62,8 +62,8 @@ class TestAdjTargets:
 #.E...#
 #...G.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._adj_targets(process.Coords(4, 3)) == []
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._adj_targets(process.Coords(4, 3)) == []
 
     def test_adj_target_with_one_units_in_range(self):
         input_ = """\
@@ -72,8 +72,8 @@ class TestAdjTargets:
 #.E...#
 #...G.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._adj_targets(process.Coords(3, 1)) == [process.Coords(2, 1)]
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._adj_targets(process.Coords(3, 1)) == [process.Coords(2, 1)]
 
     def test_adj_target_with_multiple_units_in_range_returns_units_in_reading_order(self):
         input_ = """\
@@ -82,8 +82,8 @@ class TestAdjTargets:
 #EGE..#
 #.E...#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._adj_targets(process.Coords(2, 2)) == [
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._adj_targets(process.Coords(2, 2)) == [
             process.Coords(2, 1),
             process.Coords(1, 2),
             process.Coords(3, 2),
@@ -97,8 +97,8 @@ class TestAdjTargets:
 #.G...#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._adj_targets(process.Coords(2, 1)) == [process.Coords(3, 1)]
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._adj_targets(process.Coords(2, 1)) == [process.Coords(3, 1)]
 
 
 class TestChooseStep:
@@ -110,8 +110,8 @@ class TestChooseStep:
 #.G.E.#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._choose_step(process.Coords(2, 2)) == process.Coords(3, 2)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._choose_step(process.Coords(2, 2)) == process.Coords(3, 2)
 
     def test_target_picks_up_in_range_squares_for_multiple_targets(self):
         input_ = """\
@@ -122,8 +122,8 @@ class TestChooseStep:
 #...E.#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._choose_step(process.Coords(2, 2)) == process.Coords(3, 2)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._choose_step(process.Coords(2, 2)) == process.Coords(3, 2)
 
     def test_target_does_not_consider_in_range_squares_for_friendly_units(self):
         input_ = """\
@@ -132,8 +132,8 @@ class TestChooseStep:
 #.G.G.#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._choose_step(process.Coords(2, 2)) is None
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._choose_step(process.Coords(2, 2)) is None
 
     def test_target_does_not_consider_in_range_squares_for_targets_that_are_unreachable(self):
         input_ = """\
@@ -142,8 +142,8 @@ class TestChooseStep:
 #.G....#.E#
 #......G..#
 ###########"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._choose_step(process.Coords(2, 2)) is None
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._choose_step(process.Coords(2, 2)) is None
 
     def test_target_finds_shortest_path_by_reading_order(self):
         input_ = """\
@@ -152,8 +152,8 @@ class TestChooseStep:
 #.GE..#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits._choose_step(process.Coords(2, 2)) == process.Coords(2, 1)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat._choose_step(process.Coords(2, 2)) == process.Coords(2, 1)
 
 
 class TestMove:
@@ -165,14 +165,14 @@ class TestMove:
 #.GE..#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits.grid[process.Coords(2, 1)] == process.Map.CAVERN
-        assert beverage_bandits.grid[process.Coords(2, 2)] == process.Unit(process.Map.GOBLIN)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat.grid[process.Coords(2, 1)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(2, 2)] == process.Unit(process.Map.GOBLIN)
 
-        new_position = beverage_bandits._move(process.Coords(2, 2))
+        new_position = elf_goblin_combat._move(process.Coords(2, 2))
         assert new_position == process.Coords(2, 1)
-        assert beverage_bandits.grid[process.Coords(2, 1)] == process.Unit(process.Map.GOBLIN)
-        assert beverage_bandits.grid[process.Coords(2, 2)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(2, 1)] == process.Unit(process.Map.GOBLIN)
+        assert elf_goblin_combat.grid[process.Coords(2, 2)] == process.Map.CAVERN
 
     def test_dont_move_if_valid_move_does_not_exist(self):
         input_ = """\
@@ -181,14 +181,14 @@ class TestMove:
 #.GG..#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(input_)
-        assert beverage_bandits.grid[process.Coords(2, 1)] == process.Map.CAVERN
-        assert beverage_bandits.grid[process.Coords(2, 2)] == process.Unit(process.Map.GOBLIN)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(input_)
+        assert elf_goblin_combat.grid[process.Coords(2, 1)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(2, 2)] == process.Unit(process.Map.GOBLIN)
 
-        new_position = beverage_bandits._move(process.Coords(2, 2))
+        new_position = elf_goblin_combat._move(process.Coords(2, 2))
         assert new_position == process.Coords(2, 2)
-        assert beverage_bandits.grid[process.Coords(2, 1)] == process.Map.CAVERN
-        assert beverage_bandits.grid[process.Coords(2, 2)] == process.Unit(process.Map.GOBLIN)
+        assert elf_goblin_combat.grid[process.Coords(2, 1)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(2, 2)] == process.Unit(process.Map.GOBLIN)
 
 
 class TestTurn:
@@ -204,9 +204,9 @@ class TestTurn:
 #.......#
 #G..G..G#
 #########"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
 
-        beverage_bandits.round()
+        elf_goblin_combat.round()
 
         expected_grid_round_1 = """\
 #########
@@ -218,10 +218,10 @@ class TestTurn:
 #G..G..G#
 #.......#
 #########"""
-        actual_grid_round_1 = beverage_bandits._grid_unparse()
+        actual_grid_round_1 = elf_goblin_combat._grid_unparse()
         assert actual_grid_round_1 == expected_grid_round_1
 
-        beverage_bandits.round()
+        elf_goblin_combat.round()
 
         expected_grid_round_2 = """\
 #########
@@ -233,10 +233,10 @@ class TestTurn:
 #.......#
 #.......#
 #########"""
-        actual_grid_round_2 = beverage_bandits._grid_unparse()
+        actual_grid_round_2 = elf_goblin_combat._grid_unparse()
         assert actual_grid_round_2 == expected_grid_round_2
 
-        beverage_bandits.round()
+        elf_goblin_combat.round()
 
         expected_grid_round_3 = """\
 #########
@@ -248,7 +248,7 @@ class TestTurn:
 #.......#
 #.......#
 #########"""
-        actual_grid_round_3 = beverage_bandits._grid_unparse()
+        actual_grid_round_3 = elf_goblin_combat._grid_unparse()
         assert actual_grid_round_3 == expected_grid_round_3
 
 
@@ -262,22 +262,22 @@ G....
 ..EG.
 ..G..
 ...G."""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
 
-        beverage_bandits.grid[process.Coords(0, 0)].hit_points = 9
-        beverage_bandits.grid[process.Coords(2, 1)].hit_points = 5
-        beverage_bandits.grid[process.Coords(3, 2)].hit_points = 4
-        beverage_bandits.grid[process.Coords(2, 3)].hit_points = 4
-        beverage_bandits.grid[process.Coords(3, 4)].hit_points = 1
+        elf_goblin_combat.grid[process.Coords(0, 0)].hit_points = 9
+        elf_goblin_combat.grid[process.Coords(2, 1)].hit_points = 5
+        elf_goblin_combat.grid[process.Coords(3, 2)].hit_points = 4
+        elf_goblin_combat.grid[process.Coords(2, 3)].hit_points = 4
+        elf_goblin_combat.grid[process.Coords(3, 4)].hit_points = 1
 
-        beverage_bandits._select_and_attack([process.Coords(2, 1), process.Coords(3, 2), process.Coords(2, 3)])
+        elf_goblin_combat._select_and_attack([process.Coords(2, 1), process.Coords(3, 2), process.Coords(2, 3)])
 
-        assert beverage_bandits.grid[process.Coords(0, 0)].hit_points == 9
-        assert beverage_bandits.grid[process.Coords(2, 1)].hit_points == 5
-        assert beverage_bandits.grid[process.Coords(2, 3)].hit_points == 4
-        assert beverage_bandits.grid[process.Coords(3, 4)].hit_points == 1
+        assert elf_goblin_combat.grid[process.Coords(0, 0)].hit_points == 9
+        assert elf_goblin_combat.grid[process.Coords(2, 1)].hit_points == 5
+        assert elf_goblin_combat.grid[process.Coords(2, 3)].hit_points == 4
+        assert elf_goblin_combat.grid[process.Coords(3, 4)].hit_points == 1
 
-        assert beverage_bandits.grid[process.Coords(3, 2)].hit_points == 1
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].hit_points == 1
 
     def test_select_and_attack_health_goes_to_exactly_0_and_unit_dies(self):
         initial_grid = """\
@@ -286,22 +286,22 @@ G....
 ..EG.
 ..G..
 ...G."""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
 
-        beverage_bandits.grid[process.Coords(0, 0)].hit_points = 9
-        beverage_bandits.grid[process.Coords(2, 1)].hit_points = 4
-        beverage_bandits.grid[process.Coords(3, 2)].hit_points = 3
-        beverage_bandits.grid[process.Coords(2, 3)].hit_points = 3
-        beverage_bandits.grid[process.Coords(3, 4)].hit_points = 1
+        elf_goblin_combat.grid[process.Coords(0, 0)].hit_points = 9
+        elf_goblin_combat.grid[process.Coords(2, 1)].hit_points = 4
+        elf_goblin_combat.grid[process.Coords(3, 2)].hit_points = 3
+        elf_goblin_combat.grid[process.Coords(2, 3)].hit_points = 3
+        elf_goblin_combat.grid[process.Coords(3, 4)].hit_points = 1
 
-        beverage_bandits._select_and_attack([process.Coords(2, 1), process.Coords(3, 2), process.Coords(2, 3)])
+        elf_goblin_combat._select_and_attack([process.Coords(2, 1), process.Coords(3, 2), process.Coords(2, 3)])
 
-        assert beverage_bandits.grid[process.Coords(0, 0)].hit_points == 9
-        assert beverage_bandits.grid[process.Coords(2, 1)].hit_points == 4
-        assert beverage_bandits.grid[process.Coords(2, 3)].hit_points == 3
-        assert beverage_bandits.grid[process.Coords(3, 4)].hit_points == 1
+        assert elf_goblin_combat.grid[process.Coords(0, 0)].hit_points == 9
+        assert elf_goblin_combat.grid[process.Coords(2, 1)].hit_points == 4
+        assert elf_goblin_combat.grid[process.Coords(2, 3)].hit_points == 3
+        assert elf_goblin_combat.grid[process.Coords(3, 4)].hit_points == 1
 
-        assert beverage_bandits.grid[process.Coords(3, 2)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(3, 2)] == process.Map.CAVERN
 
     def test_select_and_attack_health_drops_below_0_and_unit_dies(self):
         initial_grid = """\
@@ -310,22 +310,22 @@ G....
 ..EG.
 ..G..
 ...G."""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
 
-        beverage_bandits.grid[process.Coords(0, 0)].hit_points = 9
-        beverage_bandits.grid[process.Coords(2, 1)].hit_points = 4
-        beverage_bandits.grid[process.Coords(3, 2)].hit_points = 2
-        beverage_bandits.grid[process.Coords(2, 3)].hit_points = 2
-        beverage_bandits.grid[process.Coords(3, 4)].hit_points = 1
+        elf_goblin_combat.grid[process.Coords(0, 0)].hit_points = 9
+        elf_goblin_combat.grid[process.Coords(2, 1)].hit_points = 4
+        elf_goblin_combat.grid[process.Coords(3, 2)].hit_points = 2
+        elf_goblin_combat.grid[process.Coords(2, 3)].hit_points = 2
+        elf_goblin_combat.grid[process.Coords(3, 4)].hit_points = 1
 
-        beverage_bandits._select_and_attack([process.Coords(2, 1), process.Coords(3, 2), process.Coords(2, 3)])
+        elf_goblin_combat._select_and_attack([process.Coords(2, 1), process.Coords(3, 2), process.Coords(2, 3)])
 
-        assert beverage_bandits.grid[process.Coords(0, 0)].hit_points == 9
-        assert beverage_bandits.grid[process.Coords(2, 1)].hit_points == 4
-        assert beverage_bandits.grid[process.Coords(2, 3)].hit_points == 2
-        assert beverage_bandits.grid[process.Coords(3, 4)].hit_points == 1
+        assert elf_goblin_combat.grid[process.Coords(0, 0)].hit_points == 9
+        assert elf_goblin_combat.grid[process.Coords(2, 1)].hit_points == 4
+        assert elf_goblin_combat.grid[process.Coords(2, 3)].hit_points == 2
+        assert elf_goblin_combat.grid[process.Coords(3, 4)].hit_points == 1
 
-        assert beverage_bandits.grid[process.Coords(3, 2)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(3, 2)] == process.Map.CAVERN
 
 
 class TestCombat:
@@ -337,12 +337,12 @@ class TestCombat:
 ..E..
 .....
 ....."""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
 
-        beverage_bandits.grid[process.Coords(2, 2)].hit_points = 1      # dies after 1 hits
+        elf_goblin_combat.grid[process.Coords(2, 2)].hit_points = 1      # dies after 1 hits
 
         # does not raise exception
-        combat_gen = beverage_bandits.combat()
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:
@@ -359,12 +359,12 @@ class TestCombat:
 ..E..
 ..G..
 ....."""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
 
-        beverage_bandits.grid[process.Coords(2, 2)].hit_points = 1  # dies after 1 hits
+        elf_goblin_combat.grid[process.Coords(2, 2)].hit_points = 1  # dies after 1 hits
 
         # does not raise exception
-        combat_gen = beverage_bandits.combat()
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:
@@ -386,14 +386,14 @@ class TestComplexCombat:
 #..G#E#
 #.....#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
-        combat_gen = beverage_bandits.combat()
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
+        combat_gen = elf_goblin_combat.combat()
 
         next(combat_gen)
 
         # round 1
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #..G..#
 #...EG#
@@ -402,29 +402,29 @@ class TestComplexCombat:
 #.....#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(3, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(4, 2)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(4, 2)].hit_points == 197
+        assert elf_goblin_combat.grid[process.Coords(4, 2)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(4, 2)].hit_points == 197
 
-        assert beverage_bandits.grid[process.Coords(5, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 2)].hit_points == 197
+        assert elf_goblin_combat.grid[process.Coords(5, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 2)].hit_points == 197
 
-        assert beverage_bandits.grid[process.Coords(3, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 3)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 3)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 197
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 197
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 197
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 197
 
         next(combat_gen)
 
         # round 2
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #...G.#
 #..GEG#
@@ -433,30 +433,30 @@ class TestComplexCombat:
 #.....#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(4, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(4, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(4, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(4, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(3, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 2)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(4, 2)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(4, 2)].hit_points == 188
+        assert elf_goblin_combat.grid[process.Coords(4, 2)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(4, 2)].hit_points == 188
 
-        assert beverage_bandits.grid[process.Coords(5, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 2)].hit_points == 194
+        assert elf_goblin_combat.grid[process.Coords(5, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 2)].hit_points == 194
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 194
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 194
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 194
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 194
 
         for _ in range(21):
             next(combat_gen)
 
         # round 23
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #...G.#
 #..G.G#
@@ -465,28 +465,28 @@ class TestComplexCombat:
 #.....#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(4, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(4, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(4, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(4, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(3, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 2)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(4, 2)] == process.Map.CAVERN
+        assert elf_goblin_combat.grid[process.Coords(4, 2)] == process.Map.CAVERN
 
-        assert beverage_bandits.grid[process.Coords(5, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 2)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(5, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 2)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 131
 
         next(combat_gen)
 
         # round 24
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #..G..#
 #...G.#
@@ -495,26 +495,26 @@ class TestComplexCombat:
 #.....#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(3, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(4, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(4, 2)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(4, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(4, 2)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(3, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 3)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 3)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 128
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 128
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 128
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 128
 
         next(combat_gen)
 
         # round 25
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #.G...#
 #..G..#
@@ -523,26 +523,26 @@ class TestComplexCombat:
 #.....#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(2, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(2, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(2, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(2, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(3, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 2)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 2)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 125
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 125
 
-        assert beverage_bandits.grid[process.Coords(3, 4)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 4)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 4)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 4)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 125
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 125
 
         next(combat_gen)
 
         # round 26
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #G....#
 #.G...#
@@ -551,26 +551,26 @@ class TestComplexCombat:
 #..G..#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(1, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(1, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(1, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(1, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(2, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(2, 2)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(2, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(2, 2)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 122
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 122
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 122
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 122
 
-        assert beverage_bandits.grid[process.Coords(3, 5)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(3, 5)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(3, 5)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(3, 5)].hit_points == 200
 
         next(combat_gen)
 
         # round 27
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #G....#
 #.G...#
@@ -579,26 +579,26 @@ class TestComplexCombat:
 #...G.#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(1, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(1, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(1, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(1, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(2, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(2, 2)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(2, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(2, 2)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 119
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 119
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 119
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 119
 
-        assert beverage_bandits.grid[process.Coords(4, 5)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(4, 5)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(4, 5)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(4, 5)].hit_points == 200
 
         next(combat_gen)
 
         # round 28
 
-        assert beverage_bandits._grid_unparse() == """\
+        assert elf_goblin_combat._grid_unparse() == """\
 #######
 #G....#
 #.G...#
@@ -607,20 +607,20 @@ class TestComplexCombat:
 #....G#
 #######"""
 
-        assert beverage_bandits.grid[process.Coords(1, 1)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(1, 1)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(1, 1)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(1, 1)].hit_points == 200
 
-        assert beverage_bandits.grid[process.Coords(2, 2)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(2, 2)].hit_points == 131
+        assert elf_goblin_combat.grid[process.Coords(2, 2)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(2, 2)].hit_points == 131
 
-        assert beverage_bandits.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 3)].hit_points == 116
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 3)].hit_points == 116
 
-        assert beverage_bandits.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
-        assert beverage_bandits.grid[process.Coords(5, 4)].hit_points == 113
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].unit_type == process.Map.ELF
+        assert elf_goblin_combat.grid[process.Coords(5, 4)].hit_points == 113
 
-        assert beverage_bandits.grid[process.Coords(5, 5)].unit_type == process.Map.GOBLIN
-        assert beverage_bandits.grid[process.Coords(5, 5)].hit_points == 200
+        assert elf_goblin_combat.grid[process.Coords(5, 5)].unit_type == process.Map.GOBLIN
+        assert elf_goblin_combat.grid[process.Coords(5, 5)].hit_points == 200
 
         try:
             while True:
@@ -664,8 +664,8 @@ class TestComplexCombat:
 #...#E#
 #...E.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
-        combat_gen = beverage_bandits.combat()
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:
@@ -710,8 +710,8 @@ class TestComplexCombat:
 #G..#.#
 #..E#.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
-        combat_gen = beverage_bandits.combat()
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:
@@ -756,8 +756,8 @@ class TestComplexCombat:
 #G..#.#
 #...E.#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
-        combat_gen = beverage_bandits.combat()
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:
@@ -802,8 +802,8 @@ class TestComplexCombat:
 #E#G#G#
 #...#G#
 #######"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
-        combat_gen = beverage_bandits.combat()
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:
@@ -847,8 +847,8 @@ class TestComplexCombat:
 #.G...G.#
 #.....G.#
 #########"""
-        beverage_bandits = process.ElfGoblinCombat.read_input(initial_grid)
-        combat_gen = beverage_bandits.combat()
+        elf_goblin_combat = process.ElfGoblinCombat.read_input(initial_grid)
+        combat_gen = elf_goblin_combat.combat()
 
         try:
             while True:

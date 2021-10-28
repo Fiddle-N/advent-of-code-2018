@@ -289,8 +289,8 @@ class VariableElfAttackPower:
 def main():
     input_ = ElfGoblinCombat.read_file()
 
-    beverage_bandits = ElfGoblinCombat.read_input(input_)
-    combat_gen = beverage_bandits.combat()
+    elf_goblin_combat = ElfGoblinCombat.read_input(input_)
+    combat_gen = elf_goblin_combat.combat()
 
     try:
         while True:
