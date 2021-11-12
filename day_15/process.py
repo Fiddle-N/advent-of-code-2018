@@ -248,7 +248,19 @@ class VariableElfAttackPower:
 
     def search(self, step_size=10):
         lower_bound_attack, upper_bound_attack = self._find_boundary(step_size)
-        return self._search(lower_bound_attack, upper_bound_attack)
+        while True:
+            middle_attack = (lower_bound_attack + upper_bound_attack) // 2
+            result = self._run(middle_attack)
+            result_plus_one = self._run(middle_attack + 1)
+            if (result_pair := (bool(result), bool(result_plus_one))) == (False, True):
+                # crossover point found where elf loss turns into elf win
+                return (middle_attack + 1), result_plus_one
+            elif result_pair == (False, False):
+                # elves still losing - search for higher elf power
+                lower_bound_attack = middle_attack
+            elif result_pair == (True, True):
+                # elves too powerful - search for lower elf power
+                upper_bound_attack = middle_attack
 
     def _find_boundary(self, step_size):
         lower_bound_attack = DEFAULT_ATTACK_POWER
@@ -260,20 +272,6 @@ class VariableElfAttackPower:
             else:
                 lower_bound_attack = upper_bound_attack
                 upper_bound_attack = upper_bound_attack + step_size
-
-    def _search(self, lower_bound_attack, upper_bound_attack):
-        middle_attack = (lower_bound_attack + upper_bound_attack) // 2
-        result = self._run(middle_attack)
-        result_plus_one = self._run(middle_attack + 1)
-        if (result_pair := (bool(result), bool(result_plus_one))) == (False, True):
-            # crossover point found where elf loss turns into elf win
-            return (middle_attack + 1), result_plus_one
-        elif result_pair == (False, False):
-            # elves still losing - search for higher elf power
-            return self._search(middle_attack, upper_bound_attack)
-        elif result_pair == (True, True):
-            # elves too powerful - search for lower elf power
-            return self._search(lower_bound_attack, middle_attack)
 
     def _run(self, elf_attack):
         elf_goblin_combat = ElfGoblinCombat.read_input(self._input_, elf_attack)
