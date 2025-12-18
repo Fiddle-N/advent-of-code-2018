@@ -1,6 +1,6 @@
 import pytest
 
-from src.advent_of_code.puzzles.year_2018.day_17 import process
+from advent_of_code.puzzles.year_2018.day_17 import process
 
 
 class TestMapGeneration:

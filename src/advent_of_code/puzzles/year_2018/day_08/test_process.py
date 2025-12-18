@@ -1,4 +1,4 @@
-from src.advent_of_code.puzzles.year_2018.day_08 import process
+from advent_of_code.puzzles.year_2018.day_08 import process
 
 
 def test_example():

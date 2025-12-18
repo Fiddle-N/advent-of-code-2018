@@ -1,4 +1,4 @@
-from src.advent_of_code.puzzles.year_2018.day_14 import process
+from advent_of_code.puzzles.year_2018.day_14 import process
 
 
 class TestPart1:

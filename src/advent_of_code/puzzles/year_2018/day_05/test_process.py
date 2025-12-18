@@ -1,6 +1,6 @@
 import unittest
 
-import process
+from advent_of_code.puzzles.year_2018.day_05 import process
 
 class TestProcessPolymer(unittest.TestCase):
 

@@ -3,7 +3,7 @@ import textwrap
 import unittest
 import io
 
-import process
+from advent_of_code.puzzles.year_2018.day_04 import process
 
 
 class TestProcessFile(unittest.TestCase):
