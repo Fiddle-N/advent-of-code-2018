@@ -22,7 +22,7 @@ class Sample:
 
 
 
-class ChronalClassification:
+class DeviceVM:
 
     def __init__(self, samples, test_program=None):
         self.samples = samples
@@ -184,9 +184,9 @@ class ChronalClassification:
 
 
 def main():
-    chronal_classification = ChronalClassification.read_file()
-    print(f'Number of samples that behave like 3 or more opcodes: {chronal_classification.calculate_opcodes()}')
-    print(f'Register 0 value after executing test program: {chronal_classification.run_program()[0]}')
+    dvm = DeviceVM.read_file()
+    print(f'Number of samples that behave like 3 or more opcodes: {dvm.calculate_opcodes()}')
+    print(f'Register 0 value after executing test program: {dvm.run_program()[0]}')
 
 
 if __name__ == '__main__':
